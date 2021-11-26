@@ -12,6 +12,7 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] Text txt_Name;         //대화창 이름 텍스트
 
     public InteractionCtrl interCtrl = null;
+    public CSV_ex csv_ex;
     
     bool isDialogue = false;    //대화창이 열리고 닫힘을 표시
 
@@ -28,6 +29,8 @@ public class DialogueManager : MonoBehaviour
         txt_Name.text = "";
 
         SettingUI(true);
+        txt_Dialogue.text = csv_ex.GetData(1);
+        
     }
 
     // 대화창 열기,닫기

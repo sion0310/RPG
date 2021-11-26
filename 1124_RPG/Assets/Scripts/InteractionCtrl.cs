@@ -15,15 +15,16 @@ public class InteractionCtrl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //좌클릭 함수
         ClickLeftBtn();
     }
 
     private void FixedUpdate()
     {
+        //레이로 오브젝트체크
         CheckObject();
     }
 
-    //레이로 오브젝트 체크
     void CheckObject()
     {
         Vector3 t_mousePos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0);
@@ -31,10 +32,12 @@ public class InteractionCtrl : MonoBehaviour
         // 마우스가 올라갔을때와 아닐때 이펙트를 켜고 끄기위해 Contact와 NotContact함수를 만듬
         if(Physics.Raycast(cam.ScreenPointToRay(t_mousePos),out hitInfo, 100))
         {
+            //마우스가 위에 있을때 실행될 함수
             Contact();
         }
         else
         {
+            //마우스가 위에 없을때 실행될 함수
             NotContact();   
         }
     }
@@ -63,19 +66,21 @@ public class InteractionCtrl : MonoBehaviour
         if (isContact)
         {
             isContact = false;
+            //마우스가 내려가면 꺼줘야 하는 것들 넣기
         }
     }
 
+
     void ClickLeftBtn()
     {
-        if (!isInterat)
+        //상호작용시작을 안했고, 마우스가 오브젝트위에 있으면 아래함수 실행
+        if (!isInterat && isContact) 
         {
             if (Input.GetMouseButtonDown(0))
             {
-                if (isContact)
-                {
-                    Interact();
-                }
+                //상호작용할때 실행될 함수
+                Interact();
+                
             }
         }
         
@@ -83,6 +88,7 @@ public class InteractionCtrl : MonoBehaviour
     
     void Interact()
     {
+        //상호작용 중임을 표시
         isInterat = true;
         
         //상호작용 델리게이트 실행
