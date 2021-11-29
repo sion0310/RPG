@@ -7,8 +7,12 @@ public class CSV_ex : MonoBehaviour
     List<Dictionary<string, object>> dataList;
     List<Dictionary<string, object>> data;
     List<Dictionary<string, object>> data2;
+
+    int index;
+
     void Awake()
     {
+        index = 0;
         dataList = CSVReader.Read("RPG - talkList");
 
         for (var i = 0; i < dataList.Count; i++)
@@ -46,16 +50,19 @@ public class CSV_ex : MonoBehaviour
     }
     
 
-    public string GetData(int num)
+    public string GetData(int _npcID)
     {
         string str = null;
-        if (num==0)
+        //아래 조건문은 대화창을 닫는것으로 바꾼다.
+        if (data2.Count <= index) index = 0;
+        if (_npcID==0)
         {
-            str= data[4]["Dialogue"].ToString();
+            str= data[index]["Dialogue"].ToString();
+            index++;
         }
-        if (num==1)
+        if (_npcID==1)
         {
-            str= data2[4]["Dialogue"].ToString();
+            str= data2[index]["Dialogue"].ToString();
         }
 
         

@@ -73,14 +73,13 @@ public class InteractionCtrl : MonoBehaviour
 
     void ClickLeftBtn()
     {
-        //상호작용시작을 안했고, 마우스가 오브젝트위에 있으면 아래함수 실행
-        if (!isInterat && isContact) 
+        if (isContact)
         {
             if (Input.GetMouseButtonDown(0))
             {
                 //상호작용할때 실행될 함수
                 Interact();
-                
+
             }
         }
         

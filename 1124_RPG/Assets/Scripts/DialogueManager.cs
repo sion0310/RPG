@@ -24,14 +24,20 @@ public class DialogueManager : MonoBehaviour
 
     public void ShowDialogue()
     {
-        //혹시 뭔가 쓰여져 있지 않도록 텍스트 내용물 비워주기
-        txt_Dialogue.text = "";
-        txt_Name.text = "";
-
-        SettingUI(true);
-        txt_Dialogue.text = csv_ex.GetData(1);
+        
+        if (!isDialogue)
+        {
+            //혹시 뭔가 쓰여져 있지 않도록 텍스트 내용물 비워주기
+            txt_Dialogue.text = "";
+            txt_Name.text = "";
+            isDialogue = true;
+        }
+        txt_Dialogue.text = csv_ex.GetData(0);
+        SettingUI(isDialogue);
         
     }
+
+
 
     // 대화창 열기,닫기
     void SettingUI(bool p_flag)
