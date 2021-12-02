@@ -9,7 +9,7 @@ public class InteractionCtrl : MonoBehaviour
     public bool isContact = false;      //이펙트 중복실행을 막기위해 사용
     public bool isInterat = false;      //상호작용중인지 아닌지
 
-    public delegate void InteractPro();     //상호작용 델리게이트
+    public delegate void InteractPro(int npcNum);     //상호작용 델리게이트
     public InteractPro interact_pro = null;
 
     // Update is called once per frame
@@ -75,7 +75,8 @@ public class InteractionCtrl : MonoBehaviour
     {
         if (isContact)
         {
-            if (Input.GetMouseButtonDown(0))
+            //지금 마우스가 이상해서 자꾸 더블클릭됨 그래서 g키 넣은거 나중에 빼세요
+            if ((Input.GetKeyDown(KeyCode.G))) //Input.GetMouseButtonDown(0))
             {
                 //상호작용할때 실행될 함수
                 Interact();
@@ -89,9 +90,9 @@ public class InteractionCtrl : MonoBehaviour
     {
         //상호작용 중임을 표시
         isInterat = true;
-        
+        int npcNnm = hitInfo.transform.GetComponent<InteractionNpc>().GetNum();
         //상호작용 델리게이트 실행
-        interact_pro?.Invoke();
+        interact_pro?.Invoke(npcNnm);
         Debug.Log(hitInfo.transform.name);
     }
     

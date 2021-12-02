@@ -4,70 +4,63 @@ using System.Collections.Generic;
 
 public class CSV_ex : MonoBehaviour
 {
-    List<Dictionary<string, object>> dataList;
-    List<Dictionary<string, object>> data;
-    List<Dictionary<string, object>> data2;
+    List<Dictionary<string, object>> questlist;
+    List<Dictionary<string, object>> talk01;
+    List<Dictionary<string, object>> talk02;
 
     int index;
 
     void Awake()
     {
         index = 0;
-        dataList = CSVReader.Read("RPG - talkList");
 
-        for (var i = 0; i < dataList.Count; i++)
+        questlist = CSVReader.Read("quest");
+        talk01 = CSVReader.Read("dialogue01");
+        talk02 = CSVReader.Read("dialogue02");
+
+        for (var i = 0; i < questlist.Count; i++)
         {
-            print(dataList[i]["ID"] + " " +
-                  dataList[i]["questName"]);
+            print(questlist[i]["index"] + " " +
+                  questlist[i]["npc"] + " " +
+                  questlist[i]["questName"] + " " +
+                  questlist[i]["quest"]);
 
         }
 
-        data = CSVReader.Read("RPG - talk");
-
-        for (var i = 0; i < data.Count; i++)
+        for (var i = 0; i < talk01.Count; i++)
         {
-            //string[] scripts = ((string)data[i]["Dialogue"]).Split('$');
-
-            print(data[i]["Index"] + " " +
-                  data[i]["Name"] + " " +
-                  data[i]["Dialogue"] + " " +
-                  data[i]["EventNum"] + " " +
-                  data[i]["SkipLine"]);
-
+            print(talk01[i]["Index"] + " " +
+                  talk01[i]["Name"] + " " +
+                  talk01[i]["Dialogue"]);
         }
-        
-        data2 = CSVReader.Read("RPG - talk2");
 
-        for (var i = 0; i < data2.Count; i++)
+        for (var i = 0; i < talk02.Count; i++)
         {
-            print(data2[i]["Index"] + " " +
-                  data2[i]["Name"] + " " +
-                  data2[i]["Dialogue"] + " " +
-                  data2[i]["EventNum"] + " " +
-                  data2[i]["SkipLine"]);
-
+            print(talk02[i]["Index"] + " " +
+                  talk02[i]["Name"] + " " +
+                  talk02[i]["Dialogue"]);
         }
     }
     
 
-    public string GetData(int _npcID)
+    public string GetDialogue()
     {
-        string str = null;
-        //아래 조건문은 대화창을 닫는것으로 바꾼다.
-        if (data2.Count <= index) index = 0;
-        if (_npcID==0)
+        string str;
+        str = talk01[index]["Dialogue"].ToString();
+        index++;
+        if (index >= talk01.Count)
         {
-            str= data[index]["Dialogue"].ToString();
-            index++;
+            index = 0;
+            str = null;
         }
-        if (_npcID==1)
-        {
-            str= data2[index]["Dialogue"].ToString();
-        }
+        
+
 
         
 
         return str;
     }
+
+   
     
 }
