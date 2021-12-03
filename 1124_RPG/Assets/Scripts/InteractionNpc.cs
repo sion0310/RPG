@@ -11,9 +11,13 @@ public class InteractionNpc : MonoBehaviour
     enum NpcState { normal, haveQuest, doingQuest, doneQuest }
     [SerializeField] NpcState npcState = NpcState.normal;
 
+    [SerializeField]
     int scriptNum = 0;      //대사뭉치
     int dialogueNum = 0;    //몇번째 줄 대사 
-    
+
+    int nextNpc;
+
+
     public int GetNum()
     {
         return npcNum;
@@ -21,9 +25,11 @@ public class InteractionNpc : MonoBehaviour
 
     public Dictionary<string, object> GetDialogue()
     {
+        nextNpc = npcNum;
         Dictionary<string, object> dialogue =
-            questData.GetDialogue(npcNum, scriptNum, dialogueNum);
+            questData.GetDialogue(nextNpc, scriptNum, dialogueNum);
         ChangeValue(dialogue);
+       
         return dialogue;
     }
 
@@ -34,9 +40,15 @@ public class InteractionNpc : MonoBehaviour
         {
             dialogueNum = 0;
             scriptNum++;
-            npcNum = (int)dialogue["nextNpc"];
+            
+
+            nextNpc = (int)questData.GetDialogue(npcNum, scriptNum, 0)["nextNpc"];
 
         }
     }
 
+    public bool TalkDone()
+    {
+        return dialogueNum >= questData.GetDialNum(npcNum, scriptNum);
+    }
 }

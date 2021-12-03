@@ -75,8 +75,7 @@ public class InteractionCtrl : MonoBehaviour
     {
         if (isContact)
         {
-            //지금 마우스가 이상해서 자꾸 더블클릭됨 그래서 g키 넣은거 나중에 빼세요
-            if ((Input.GetKeyDown(KeyCode.G))) //Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(0))
             {
                 //상호작용할때 실행될 함수
                 Interact();
@@ -93,7 +92,6 @@ public class InteractionCtrl : MonoBehaviour
         int npcNnm = hitInfo.transform.GetComponent<InteractionNpc>().GetNum();
         //상호작용 델리게이트 실행
         interact_pro?.Invoke(npcNnm);
-        Debug.Log(hitInfo.transform.name);
     }
     
 }

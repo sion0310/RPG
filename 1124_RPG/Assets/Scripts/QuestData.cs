@@ -7,10 +7,16 @@ public class QuestData : MonoBehaviour
     // 리스트는 스크립트고, 딕셔너리는 다이얼로그다
 
     //npcList 모든 npc(스크립트들)의 묶음
-    List<List<List<Dictionary<string, object>>>> npcList = new List<List<List<Dictionary<string, object>>>>();
+    List<List<List<Dictionary<string, object>>>> npcList =
+                            new List<List<List<Dictionary<string, object>>>>();
+    
     //npc01Talks npc01의 스크립트 묶음
-    List<List<Dictionary<string, object>>> npc01Talks = new List<List<Dictionary<string, object>>>();
-    List<List<Dictionary<string, object>>> npc02Talks = new List<List<Dictionary<string, object>>>();
+    List<List<Dictionary<string, object>>> npc01Talks = 
+                             new List<List<Dictionary<string, object>>>();
+    
+    List<List<Dictionary<string, object>>> npc02Talks = 
+                            new List<List<Dictionary<string, object>>>();
+   
     //talk01,talk02 스크립트 각각
     List<Dictionary<string, object>> talk01;
     List<Dictionary<string, object>> talk02;
@@ -46,7 +52,10 @@ public class QuestData : MonoBehaviour
         return npcList[npcNum][scriptNum][dialNum];
     }
 
-
+    public int GetDialNum(int npcNum, int scriptNum)
+    {
+        return npcList[npcNum][scriptNum].Count;
+    }
 
 
 }
