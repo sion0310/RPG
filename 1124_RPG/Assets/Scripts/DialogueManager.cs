@@ -15,7 +15,7 @@ public class DialogueManager : MonoBehaviour
     
     bool isDialogue = false;    //대화창이 열리고 닫힘을 표시
     [SerializeField] InteractionNpc[] npcs = null;     //npc목록을 가져온다
-    InteractionNpc talkingNpc = null;
+    public InteractionNpc talkingNpc = null;
 
     private void Start()
     {
@@ -25,7 +25,7 @@ public class DialogueManager : MonoBehaviour
 
     public void ShowDialogue(int npcNum)
     {
-        //빈 npc 변수 하나 만들어주고
+        // npc 변수 하나 만들어주고
         InteractionNpc npc = null;
         //가져온 npc배열 중에서 클릭한 npcNum을 가진 npc를 변수에 넣는다
         foreach(InteractionNpc it in npcs)
@@ -63,6 +63,7 @@ public class DialogueManager : MonoBehaviour
         if (dial == null)
         {
             isDialogue = false;
+            talkingNpc = null;
         }
 
         SettingUI(isDialogue);

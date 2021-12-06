@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class InteractionNpc : MonoBehaviour
 {
-    [SerializeField] QuestData questData = null;
+    [SerializeField] DialogueData dialData = null;
 
     [SerializeField] int npcNum;
+
+    public GameObject[] icons;
 
     enum NpcState { normal, haveQuest, doingQuest, doneQuest }
     [SerializeField] NpcState npcState = NpcState.normal;
@@ -15,7 +17,14 @@ public class InteractionNpc : MonoBehaviour
     int scriptNum = 0;      //대사뭉치
     int dialogueNum = 0;    //몇번째 줄 대사 
 
-    int nextNpc;
+    private void Update()
+    {
+        switch (npcState)
+        {
+            case NpcState.normal:
+                break;
+        }
+    }
 
 
     public int GetNum()
@@ -25,9 +34,9 @@ public class InteractionNpc : MonoBehaviour
 
     public Dictionary<string, object> GetDialogue()
     {
-        nextNpc = npcNum;
+
         Dictionary<string, object> dialogue =
-            questData.GetDialogue(nextNpc, scriptNum, dialogueNum);
+            dialData.GetDialogue(npcNum, scriptNum, dialogueNum);
         ChangeValue(dialogue);
        
         return dialogue;
@@ -40,15 +49,12 @@ public class InteractionNpc : MonoBehaviour
         {
             dialogueNum = 0;
             scriptNum++;
-            
-
-            nextNpc = (int)questData.GetDialogue(npcNum, scriptNum, 0)["nextNpc"];
-
+            if (scriptNum >= dialData.GetScriptNum(npcNum)) scriptNum = 0; 
         }
     }
 
     public bool TalkDone()
     {
-        return dialogueNum >= questData.GetDialNum(npcNum, scriptNum);
+        return dialogueNum >= dialData.GetDialNum(npcNum, scriptNum);
     }
 }
