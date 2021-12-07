@@ -67,11 +67,6 @@ public class DialogueManager : MonoBehaviour
         }
 
         SettingUI(isDialogue);
-        
-      
-
-
-
     }
 
 

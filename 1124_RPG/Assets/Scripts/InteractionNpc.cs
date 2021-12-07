@@ -10,8 +10,8 @@ public class InteractionNpc : MonoBehaviour
 
     public GameObject[] icons;
 
-    enum NpcState { normal, haveQuest, doingQuest, doneQuest }
-    [SerializeField] NpcState npcState = NpcState.normal;
+    public enum NpcState { normal, haveQuest, doingQuest, doneQuest }
+    [SerializeField] public NpcState npcState = NpcState.normal;
 
     [SerializeField]
     int scriptNum = 0;      //´ë»ç¹¶Ä¡
@@ -19,11 +19,17 @@ public class InteractionNpc : MonoBehaviour
 
     private void Update()
     {
-        switch (npcState)
-        {
-            case NpcState.normal:
-                break;
-        }
+        IconSetUp();
+    }
+
+    private void IconSetUp()
+    {
+        icons[0].SetActive(false);
+        icons[1].SetActive(false);
+        icons[2].SetActive(false);
+        icons[3].SetActive(false);
+
+        icons[(int)npcState].SetActive(true);
     }
 
 
