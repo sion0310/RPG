@@ -47,8 +47,8 @@ public class InteractionNpc : MonoBehaviour
 
     public Dictionary<string, object> GetDialogue()
     {
-        //엔피씨 상태가 퀘스트가 있을경우에만 퀘스트 대화 내용을 반환
-        if (npcState == NpcState.haveQuest)
+        //엔피씨 상태가 퀘스트가 있을경우이거나 퀘스트를 완료한 경우 퀘스트 대화를 진행
+        if (npcState == NpcState.haveQuest||npcState==NpcState.doneQuest)
         {
             //npc[npcNum]가 가진 대본중 scriptNum번째 대본의 dialogueNum번째 대사를 가져온다
             Dictionary<string, object> dialogue =
@@ -57,6 +57,10 @@ public class InteractionNpc : MonoBehaviour
             ChangeValue(dialogue);
             //가져온 대사 반환
             return dialogue;
+        }
+        if (npcState == NpcState.doingQuest || npcState == NpcState.normal)
+        {
+            return null;
         }
         
         //차후 수정(기본대화, 퀘스트중 대화)
@@ -86,4 +90,8 @@ public class InteractionNpc : MonoBehaviour
         //지금 진행중인 대사의 수가 총 대사수를 넘으면 참을 반환(대화가 끝났다)
         return dialogueNum >= dialData.GetDialCount(npcNum, scriptNum);
     }
+
+    
+    
+    
 }

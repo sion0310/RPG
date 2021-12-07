@@ -5,6 +5,10 @@ using UnityEngine.UI;
 
 public class DialogueManager : MonoBehaviour
 {
+    //대충넣어논거 나중에 정리해!!!!!!!!
+    public GameObject questManager;
+
+
     [SerializeField] GameObject go_DialogueBar;     //대화창UI
     [SerializeField] GameObject go_DialogueNameBar; //대화창 이름
 
@@ -67,6 +71,15 @@ public class DialogueManager : MonoBehaviour
         //만약 대화가 끝났다면
         if (talkingNpc.TalkDone())
         {
+            //퀘스트를 주는 대사가 끝났다면, npc상태를 doing(2)으로 바꿔준다
+            if(npc.npcState==InteractionNpc.NpcState.haveQuest)
+                npc.NpcStateSetUp(2);
+            //퀘스트 조건을 충족했고 대화가 끝났다면, npc상태를 nomal(0)로 바꿔준다
+            if (npc.npcState == InteractionNpc.NpcState.doneQuest)
+            {
+                //대충넣어논거라 나중에 수정해야함
+                questManager.GetComponent<NpcManager>().ChangeValue();
+            }
             //대화중이 아님을 표시하고
             isDialogue = false;
             //대화중인 npc를 null로 바꿔준다
@@ -85,4 +98,7 @@ public class DialogueManager : MonoBehaviour
         go_DialogueBar.SetActive(p_flag);
         go_DialogueNameBar.SetActive(p_flag);
     }
+
+
+    
 }
