@@ -53,12 +53,12 @@ public class DialogueData : MonoBehaviour
         return npcList[npcNum][scriptNum][dialNum];
     }
 
-    public int GetDialNum(int npcNum, int scriptNum)
+    public int GetDialCount(int npcNum, int scriptNum)
     {
         return npcList[npcNum][scriptNum].Count;
     }
 
-    public int GetScriptNum(int npcNum)
+    public int GetScriptCount(int npcNum)
     {
         return npcList[npcNum].Count;
     }

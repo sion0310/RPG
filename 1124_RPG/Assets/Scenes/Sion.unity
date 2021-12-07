@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -184,6 +184,10 @@ PrefabInstance:
     - target: {fileID: 1767749385458323536, guid: 284cb04240c26ff4cb4b46b9677d35d8, type: 3}
       propertyPath: m_Name
       value: IconWhiteExclamation
+      objectReference: {fileID: 0}
+    - target: {fileID: 1767749385458323536, guid: 284cb04240c26ff4cb4b46b9677d35d8, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1767749385458588328, guid: 284cb04240c26ff4cb4b46b9677d35d8, type: 3}
       propertyPath: m_RootOrder
@@ -738,6 +742,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: IconWhiteSpeech
       objectReference: {fileID: 0}
+    - target: {fileID: 4317003877771752092, guid: 8997293302b8bb346b889637ee53a198, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4317003877771942152, guid: 8997293302b8bb346b889637ee53a198, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -885,6 +893,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: IconWhiteReward
       objectReference: {fileID: 0}
+    - target: {fileID: 58156642315724493, guid: aa8391b6c4053dd4fbb98c535af5da14, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 58156642333819739, guid: aa8391b6c4053dd4fbb98c535af5da14, type: 3}
       propertyPath: m_Materials.Array.size
       value: 1
@@ -919,6 +931,10 @@ PrefabInstance:
     - target: {fileID: 4317003877771752092, guid: 8997293302b8bb346b889637ee53a198, type: 3}
       propertyPath: m_Name
       value: IconWhiteSpeech
+      objectReference: {fileID: 0}
+    - target: {fileID: 4317003877771752092, guid: 8997293302b8bb346b889637ee53a198, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4317003877771942152, guid: 8997293302b8bb346b889637ee53a198, type: 3}
       propertyPath: m_RootOrder
@@ -1017,6 +1033,10 @@ PrefabInstance:
     - target: {fileID: 8744103250731703159, guid: 8e7203e48eccb244e9232d8a6abe3f4c, type: 3}
       propertyPath: m_Name
       value: IconWhiteQuestion
+      objectReference: {fileID: 0}
+    - target: {fileID: 8744103250731703159, guid: 8e7203e48eccb244e9232d8a6abe3f4c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8744103250731962767, guid: 8e7203e48eccb244e9232d8a6abe3f4c, type: 3}
       propertyPath: m_RootOrder
@@ -1232,6 +1252,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: IconWhiteReward
       objectReference: {fileID: 0}
+    - target: {fileID: 58156642315724493, guid: aa8391b6c4053dd4fbb98c535af5da14, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 58156642333819739, guid: aa8391b6c4053dd4fbb98c535af5da14, type: 3}
       propertyPath: m_Materials.Array.size
       value: 1
@@ -1387,6 +1411,10 @@ PrefabInstance:
     - target: {fileID: 1767749385458323536, guid: 284cb04240c26ff4cb4b46b9677d35d8, type: 3}
       propertyPath: m_Name
       value: IconWhiteExclamation
+      objectReference: {fileID: 0}
+    - target: {fileID: 1767749385458323536, guid: 284cb04240c26ff4cb4b46b9677d35d8, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1767749385458588328, guid: 284cb04240c26ff4cb4b46b9677d35d8, type: 3}
       propertyPath: m_RootOrder
@@ -1718,6 +1746,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: IconWhiteQuestion
       objectReference: {fileID: 0}
+    - target: {fileID: 8744103250731703159, guid: 8e7203e48eccb244e9232d8a6abe3f4c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8744103250731962767, guid: 8e7203e48eccb244e9232d8a6abe3f4c, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -1827,6 +1859,7 @@ MonoBehaviour:
   npcs:
   - {fileID: 724007406}
   - {fileID: 1366378806}
+  questdone: 0
 --- !u!1 &2019309349
 GameObject:
   m_ObjectHideFlags: 0

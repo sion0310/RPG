@@ -15,7 +15,7 @@ public class DialogueManager : MonoBehaviour
     
     bool isDialogue = false;    //대화창이 열리고 닫힘을 표시
     [SerializeField] InteractionNpc[] npcs = null;     //npc목록을 가져온다
-    public InteractionNpc talkingNpc = null;
+    public InteractionNpc talkingNpc = null;        //현재 대화중인 npc를 넣기 위한 변수
 
     private void Start()
     {
@@ -36,16 +36,21 @@ public class DialogueManager : MonoBehaviour
                 break;
             }
         }
-
+        
+        // talkingNpc가 비었으면 npc를 넣어준다.
         if (talkingNpc == null) talkingNpc = npc;
+        // 안 비었을때엔, 이전 대화가 끝났을때만 npc를 넣어준다.
         if (talkingNpc != null && talkingNpc.TalkDone()) talkingNpc = npc;
 
         //dial 한줄을 창에 띄울건데, 클릭한 npc에서 GetDialogue()를 해서 가져온다
         Dictionary<string, object> dial = talkingNpc.GetDialogue();
 
+        //차후 수정 아래 방식으로 이름이 나오는 부분을 플레이어가 지정한 이름으로 바꿀수 있다.(대사도 가능)
+        dial["Name"] = dial["Name"].ToString().Replace("ㅇㅇ", "시온");
 
-        //대화중이지 않을때 && 가져온 내용이 null이 아닐때 대화창을 열고 내용을 띄운다
-        if (dial != null) 
+
+        //대화가 진행중이면
+        if (!talkingNpc.TalkDone()) 
         {
             //대화중으로 바꿈
             isDialogue = true;
@@ -59,13 +64,16 @@ public class DialogueManager : MonoBehaviour
             txt_Name.text = dial["Name"].ToString();
         }
 
-        //예외 적인 상황이면 대화창을 닫는다.
-        if (dial == null)
+        //만약 대화가 끝났다면
+        if (talkingNpc.TalkDone())
         {
+            //대화중이 아님을 표시하고
             isDialogue = false;
+            //대화중인 npc를 null로 바꿔준다
             talkingNpc = null;
         }
 
+        //isDialogue(대화중인지 아닌지)에따라 대화창을 켜고 끈다.
         SettingUI(isDialogue);
     }
 
