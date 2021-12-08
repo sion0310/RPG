@@ -61,6 +61,11 @@ public class InteractionCtrl : MonoBehaviour
         }
     }
     
+
+
+
+
+
     void NotContact()
     {
         if (isContact)
