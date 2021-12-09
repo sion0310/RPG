@@ -1,4 +1,6 @@
-index,giveNpc,doneNpc,questName,explain
-1,0,1,첫번째 퀘스트,두두와 대화를 하자
-2,1,0,두번째 퀘스트,나나에게 물건을 갖다 주자
-3,0,0,세번째 퀘스트,대화가 끝났다
+giveNpc,doneNpc,questName,explain,giveQ,doneQ
+0,1,카이도를 만나보자,카이도와 대화,give1,done1
+2,2,음식을 먹어보자,I를 눌러 창을 열고 음식 섭취,give2,done2
+2,empty,무기를 구매하자,보따리 상인 버기에게서 무기 구입,give3,empty
+1,1,고블린을 잡아보자,고블린 10마리 처치,give4,done4
+2,2,고블린 대장을 잡아보자,고블린 대장 처치,give5,done5

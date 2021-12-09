@@ -14,29 +14,29 @@ public class CSVReader
     {
         var Dialoguelist = new List<Dictionary<string, object>>();
         TextAsset csvData = Resources.Load(file) as TextAsset;
-
-        //data.text를 행이 바뀔때마다 잘라서 lines에 넣는다
+        
+        //data.text를 가로줄이 바뀔때마다 잘라서 data에 넣는다
         var data = Regex.Split(csvData.text, LINE_SPLIT_RE);
 
-        //lines의 길이가 1이하이면 그냥 리스트로
+        //data의 길이가 1이하이면 그냥 리스트로
         if (data.Length <= 1) return Dialoguelist;
-
-        //lines 첫 행의 칸이 바뀔때마다 잘라서 header에 넣는다
-        var row = Regex.Split(data[0], SPLIT_RE);
-
+       
+        //data 첫 가로줄의 칸이 바뀔때마다 잘라서 header에 넣는다
+        var header = Regex.Split(data[0], SPLIT_RE);
+        
         //header를 제외한 나머지 값들 정리
         for (var i = 1; i < data.Length; i++)
         {
-            //lines 1행부터 칸이 바뀔때마다 잘라서 values에 넣는다
+            //data의 header다음 가로줄부터 칸이 바뀔때마다 잘라서 values에 넣는다
             var values = Regex.Split(data[i], SPLIT_RE);
 
-            //각행의 길이가 0이거나 값이 없을때는 다음단계로
-            if (values.Length == 0 || values[0] == "") continue;
+            //각 가로줄의 길이가 0이거나 값이 없을때는 다음단계로
+            if (values.Length == 0) continue;
             
             var entry = new Dictionary<string, object>();
 
             //각 값들을 항목별로 넣어주는과정
-            for (var j = 0; j < row.Length && j < values.Length; j++)
+            for (var j = 0; j < header.Length && j < values.Length; j++)
             {
                 
                 string value = values[j];
@@ -53,7 +53,7 @@ public class CSVReader
                 {
                     finalvalue = f;
                 }
-                entry[row[j]] = finalvalue;
+                entry[header[j]] = finalvalue;
             }
 
             //분류가 끝난애들 리스트에 넣어주는것

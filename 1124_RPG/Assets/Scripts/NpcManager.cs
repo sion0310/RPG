@@ -84,7 +84,7 @@ public class NpcManager : MonoBehaviour
     }
 
     //고쳐야할점, 퀘스트 완료 대사와 새로운 퀘스트를 주는 대사는 따로 만든다(스크립트)
-
+    
 
 
 

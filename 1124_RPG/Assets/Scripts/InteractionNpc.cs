@@ -18,11 +18,6 @@ public class InteractionNpc : MonoBehaviour
     int scriptNum = 0;      //대사뭉치
     int dialogueNum = 0;    //몇번째 줄 대사 
 
-    private void Start()
-    {
-        //처음에 아이콘과 상태를 모두 노말로 시작
-        NpcStateSetUp(0);
-    }
 
     //npc상태와 상태에 맞는 아이콘을 켜고 끄는 함수
     public void NpcStateSetUp(int _npcState)
@@ -52,7 +47,7 @@ public class InteractionNpc : MonoBehaviour
         {
             //npc[npcNum]가 가진 대본중 scriptNum번째 대본의 dialogueNum번째 대사를 가져온다
             Dictionary<string, object> dialogue =
-                dialData.GetDialogue(npcNum, scriptNum, dialogueNum);
+                dialData.GetDialogue(npcNum, dialogueNum);
             //다음에 가져올 값들을 수정
             ChangeValue(dialogue);
             //가져온 대사 반환
@@ -80,7 +75,7 @@ public class InteractionNpc : MonoBehaviour
             //다음 대본으로 넘어간다
             scriptNum++;
             //다음 대본이 없으면 대본 넘버를 초기화 해준다.
-            if (scriptNum >= dialData.GetScriptCount(npcNum)) scriptNum = 0; 
+            if (scriptNum >= dialData.GetScriptCount()) scriptNum = 0; 
         }
     }
 
@@ -88,10 +83,9 @@ public class InteractionNpc : MonoBehaviour
     public bool TalkDone()
     {
         //지금 진행중인 대사의 수가 총 대사수를 넘으면 참을 반환(대화가 끝났다)
-        return dialogueNum >= dialData.GetDialCount(npcNum, scriptNum);
+        return dialogueNum >= dialData.GetDialCount(npcNum);
     }
 
     
-    
-    
+
 }

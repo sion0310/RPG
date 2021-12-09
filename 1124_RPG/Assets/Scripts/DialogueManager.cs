@@ -10,10 +10,8 @@ public class DialogueManager : MonoBehaviour
 
 
     [SerializeField] GameObject go_DialogueBar;     //대화창UI
-    [SerializeField] GameObject go_DialogueNameBar; //대화창 이름
 
     [SerializeField] Text txt_Dialogue;     //대화창 텍스트
-    [SerializeField] Text txt_Name;         //대화창 이름 텍스트
 
     public InteractionCtrl interCtrl = null; //클릭한 npc정보를 받아오기위해서 가져옴
     
@@ -50,7 +48,7 @@ public class DialogueManager : MonoBehaviour
         Dictionary<string, object> dial = talkingNpc.GetDialogue();
 
         //차후 수정 아래 방식으로 이름이 나오는 부분을 플레이어가 지정한 이름으로 바꿀수 있다.(대사도 가능)
-        dial["Name"] = dial["Name"].ToString().Replace("ㅇㅇ", "시온");
+        //dial["give1"] = dial["give1"].ToString().Replace("ㅇㅇ", "시온");
 
 
         //대화가 진행중이면
@@ -61,11 +59,9 @@ public class DialogueManager : MonoBehaviour
 
             //혹시 뭔가 쓰여져 있지 않도록 텍스트 내용물 비워주기
             txt_Dialogue.text = "";
-            txt_Name.text = "";
 
             //가져온 내용을 띄워준다
-            txt_Dialogue.text = dial["Dialogue"].ToString();
-            txt_Name.text = dial["Name"].ToString();
+            txt_Dialogue.text = dial["give1"].ToString();
         }
 
         //만약 대화가 끝났다면
@@ -96,7 +92,6 @@ public class DialogueManager : MonoBehaviour
     void SettingUI(bool p_flag)
     {
         go_DialogueBar.SetActive(p_flag);
-        go_DialogueNameBar.SetActive(p_flag);
     }
 
 
