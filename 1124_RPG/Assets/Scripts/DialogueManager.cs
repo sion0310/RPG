@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class DialogueManager : MonoBehaviour
 {
     //대충넣어논거 나중에 정리해!!!!!!!!
-    public GameObject questManager;
+    public QuestManager questManager;
 
 
     [SerializeField] GameObject go_DialogueBar;     //대화창UI
@@ -16,8 +16,6 @@ public class DialogueManager : MonoBehaviour
     public InteractionCtrl interCtrl = null; //클릭한 npc정보를 받아오기위해서 가져옴
     
     bool isDialogue = false;    //대화창이 열리고 닫힘을 표시
-    [SerializeField] InteractionNpc[] npcs = null;     //npc목록을 가져온다
-    public InteractionNpc talkingNpc = null;        //현재 대화중인 npc를 넣기 위한 변수
 
     private void Start()
     {
@@ -27,32 +25,14 @@ public class DialogueManager : MonoBehaviour
 
     public void ShowDialogue(int npcNum)
     {
-        // npc 변수 하나 만들어주고
-        InteractionNpc npc = null;
-        //가져온 npc배열 중에서 클릭한 npcNum을 가진 npc를 변수에 넣는다
-        foreach(InteractionNpc it in npcs)
-        {
-            if (it.GetNum() == npcNum)
-            {
-                npc = it;
-                break;
-            }
-        }
-        
-        // talkingNpc가 비었으면 npc를 넣어준다.
-        if (talkingNpc == null) talkingNpc = npc;
-        // 안 비었을때엔, 이전 대화가 끝났을때만 npc를 넣어준다.
-        if (talkingNpc != null && talkingNpc.TalkDone()) talkingNpc = npc;
-
-        //dial 한줄을 창에 띄울건데, 클릭한 npc에서 GetDialogue()를 해서 가져온다
-        Dictionary<string, object> dial = talkingNpc.GetDialogue();
+        questManager.SetTalkNpc(npcNum);
 
         //차후 수정 아래 방식으로 이름이 나오는 부분을 플레이어가 지정한 이름으로 바꿀수 있다.(대사도 가능)
         //dial["give1"] = dial["give1"].ToString().Replace("ㅇㅇ", "시온");
 
 
         //대화가 진행중이면
-        if (!talkingNpc.TalkDone()) 
+        if (!questManager.CheckTalkDone()) 
         {
             //대화중으로 바꿈
             isDialogue = true;
@@ -61,25 +41,16 @@ public class DialogueManager : MonoBehaviour
             txt_Dialogue.text = "";
 
             //가져온 내용을 띄워준다
-            txt_Dialogue.text = dial["give1"].ToString();
+            txt_Dialogue.text = questManager.GetDialogue();
         }
-
-        //만약 대화가 끝났다면
-        if (talkingNpc.TalkDone())
+        else //만약 대화가 끝났다면
         {
-            //퀘스트를 주는 대사가 끝났다면, npc상태를 doing(2)으로 바꿔준다
-            if(npc.npcState==InteractionNpc.NpcState.haveQuest)
-                npc.NpcStateSetUp(2);
-            //퀘스트 조건을 충족했고 대화가 끝났다면, npc상태를 nomal(0)로 바꿔준다
-            if (npc.npcState == InteractionNpc.NpcState.doneQuest)
-            {
-                //대충넣어논거라 나중에 수정해야함
-                questManager.GetComponent<NpcManager>().ChangeValue();
-            }
+            //대충넣어논거라 나중에 수정해야함
+            questManager.ChangeValue();
+            questManager.AfterGiveTalk();
+
             //대화중이 아님을 표시하고
             isDialogue = false;
-            //대화중인 npc를 null로 바꿔준다
-            talkingNpc = null;
         }
 
         //isDialogue(대화중인지 아닌지)에따라 대화창을 켜고 끈다.

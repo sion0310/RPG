@@ -42,8 +42,6 @@ public class DialogueData : MonoBehaviour
         //스크립트의 대사가 dialNum 보다 적으면 x
         if (npcList[npcNum].Count <= dialNum) return null;
 
-        string str = npcList[npcNum][dialNum]["give1"].ToString();
-
         //반환값은 npcNum가 가진 dialNum번째 줄 대사
         return npcList[npcNum][dialNum];
     }
