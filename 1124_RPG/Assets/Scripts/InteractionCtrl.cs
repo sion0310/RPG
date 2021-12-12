@@ -7,10 +7,12 @@ public class InteractionCtrl : MonoBehaviour
     [SerializeField] Camera cam;
     RaycastHit hitInfo;                 //레이에 감지된 오브젝트
     public bool isContact = false;      //이펙트 중복실행을 막기위해 사용
-    public bool isInterat = false;      //상호작용중인지 아닌지
+    public bool isInteract = false;      //상호작용중인지 아닌지
 
     public delegate void InteractPro(int npcNum);     //상호작용 델리게이트
     public InteractPro interact_pro = null;
+
+    GameObject contactEffect;
 
     // Update is called once per frame
     void Update()
@@ -47,38 +49,31 @@ public class InteractionCtrl : MonoBehaviour
         // 태그가 "Interaction"인 오브젝트일 경우에만 함수가 실행되게 함
         if (hitInfo.transform.CompareTag("Interaction"))
         {
-            if (!isContact)
+            if (!isContact && !isInteract)
             {
                 isContact = true;
                 //여기에 상호작용가능한 오브젝트에 마우스가 올라갔을때
                 //넣고싶은 이펙트같은것을 넣는다
                 //응~ 지금은 안만들거야~
+                contactEffect = hitInfo.transform.Find("QuestZoneBlue").gameObject;
+                contactEffect.SetActive(true);
             }
         }
-        else
-        {
-            NotContact();
-        }
     }
-    
-
-
-
-
-
     void NotContact()
     {
-        if (isContact)
+        if (isContact && !isInteract)
         {
             isContact = false;
             //마우스가 내려가면 꺼줘야 하는 것들 넣기
+            contactEffect.SetActive(false);
         }
     }
 
 
     void ClickLeftBtn()
     {
-        if (isContact)
+        if (isContact && !isInteract)
         {
             if (Input.GetMouseButtonDown(0))
             {
@@ -87,16 +82,21 @@ public class InteractionCtrl : MonoBehaviour
 
             }
         }
-        
+       
     }
     
     void Interact()
     {
         //상호작용 중임을 표시
-        isInterat = true;
+        isInteract = true;
         int npcNnm = hitInfo.transform.GetComponent<InteractionNpc>().GetNum();
         //상호작용 델리게이트 실행
         interact_pro?.Invoke(npcNnm);
+        
+    }
+    public void NotInteract()
+    {
+        isInteract = false;
     }
     
 }

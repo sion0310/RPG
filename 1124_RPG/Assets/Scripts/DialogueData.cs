@@ -32,7 +32,6 @@ public class DialogueData : MonoBehaviour
         npcList.Add(hencock);
         npcList.Add(buggi);
 
-
     }
     
     public Dictionary<string, object> GetDialogue(int npcNum, int dialNum)
