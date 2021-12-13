@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class InteractionNpc : MonoBehaviour
 {
-    [SerializeField] DialogueData dialData = null;
-
+    
     [SerializeField] int npcNum;
     
 
@@ -14,9 +13,7 @@ public class InteractionNpc : MonoBehaviour
     public enum NpcState { normal, haveQuest, doingQuest, doneQuest }
     [SerializeField] public NpcState npcState = NpcState.normal;
 
-    [SerializeField]
-    public int dialogueNum = 0;    //몇번째 줄 대사 
-
+    
 
 
     //npc상태와 상태에 맞는 아이콘을 켜고 끄는 함수
@@ -40,16 +37,6 @@ public class InteractionNpc : MonoBehaviour
         return npcNum;
     }
 
-    public Dictionary<string, object> GetQuestDialogue()
-    {
-        //npc[npcNum]가 가진 대본중 dialogueNum번째 대사를 가져온다
-        Dictionary<string, object> dialogue =
-            dialData.GetDialogue(npcNum, dialogueNum);
-        dialogueNum++;
-        //가져온 대사 반환
-        return dialogue;
-    }
-    
 
     
 }

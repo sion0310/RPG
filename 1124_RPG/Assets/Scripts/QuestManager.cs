@@ -10,12 +10,8 @@ public class QuestManager : MonoBehaviour
     List<Dictionary<string, object>> questList;        //퀘스트 목록을 가져온다
     [SerializeField] DialogueData dialData = null;
 
-    //------------------------------------------------
-    public GameObject questUI;
-    public Text questName;
-    public Text questExplan;
-    //------------------------------------------------------
-
+    public delegate void QuestMg();
+    public QuestMg questMg = null;
 
     //퀘스트 진행상황을 판별하기위한 인덱스
     int questIndex = 0;
@@ -33,7 +29,7 @@ public class QuestManager : MonoBehaviour
     InteractionNpc doneNpc = null;
 
     InteractionNpc talkingNpc = null;   // 현재 대화중인 NPC
-    bool talkdone;
+    public bool talkdone;
 
     //차후 수정 퀘스트를 했는지 안했는지 체크하기 위함
     //(지금은 bool값으로 완료하지만 나중에는 퀘스트 완료 조건을 만들어야함)
@@ -97,11 +93,7 @@ public class QuestManager : MonoBehaviour
     //퀘스트를 주는 대화 이후의 함수
     public void AfterGiveTalk()
     {
-        //---------------------------------------------------------------------
-        questUI.SetActive(true);
-        questName.text= questList[questIndex]["questName"].ToString();
-        questExplan.text= questList[questIndex]["explan"].ToString();
-        //----------------------------------------------------------------------
+        questMg?.Invoke();
         giveNpc.NpcStateSetUp(InteractionNpc.NpcState.normal);
         doneNpc.NpcStateSetUp(InteractionNpc.NpcState.doingQuest);
 
@@ -168,18 +160,23 @@ public class QuestManager : MonoBehaviour
             
             if(talkingNpc.npcState == InteractionNpc.NpcState.haveQuest)
             {
-                talkdone = false;
                 AfterGiveTalk();
             }
             if(talkingNpc.npcState == InteractionNpc.NpcState.doneQuest)
             {
                 ChangeValue();
             }
-            else
-            {
-                talkdone = true;
-                dialogueNum = 0;
-            }
+            
+            talkdone = true;
+            dialogueNum = 0;
+
+        }
+        if (!talkdone)
+        {
+            dialogueNum++;
+
+
+            ?
         }
         return dial[header].ToString();
     }
@@ -194,10 +191,14 @@ public class QuestManager : MonoBehaviour
         //npc[npcNum]가 가진 대본중 dialogueNum번째 대사를 가져온다
         Dictionary<string, object> dialogue =
             dialData.GetDialogue(talkingNpc.GetNum(), dialogueNum);
-        dialogueNum++;
         //가져온 대사 반환
         return dialogue;
     }
-   
+
+
+    public int GetQuestIndex()
+    {
+        return questIndex;
+    }
 
 }

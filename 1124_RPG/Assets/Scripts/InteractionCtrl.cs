@@ -9,16 +9,18 @@ public class InteractionCtrl : MonoBehaviour
     public bool isContact = false;      //이펙트 중복실행을 막기위해 사용
     public bool isInteract = false;      //상호작용중인지 아닌지
 
-    public delegate void InteractPro(int npcNum);     //상호작용 델리게이트
+    public delegate void InteractPro(GameObject hitobj);   //상호작용 델리게이트
     public InteractPro interact_pro = null;
 
     GameObject contactEffect;
+    GameObject hitobj;
+    int npcNum;
 
     // Update is called once per frame
     void Update()
     {
         //좌클릭 함수
-        ClickLeftBtn();
+        InteractProcess();
     }
 
     private void FixedUpdate()
@@ -49,12 +51,12 @@ public class InteractionCtrl : MonoBehaviour
         // 태그가 "Interaction"인 오브젝트일 경우에만 함수가 실행되게 함
         if (hitInfo.transform.CompareTag("Interaction"))
         {
+            //마우스가 닿아있지 않고, 상호작용중이 아닐때(대화중엔 클릭한 npc말고 이펙트 안뜸)
             if (!isContact && !isInteract)
             {
+                //상호작용중으로 바꿔주고
                 isContact = true;
-                //여기에 상호작용가능한 오브젝트에 마우스가 올라갔을때
-                //넣고싶은 이펙트같은것을 넣는다
-                //응~ 지금은 안만들거야~
+                //닿았을때 이펙트 켜주기
                 contactEffect = hitInfo.transform.Find("QuestZoneBlue").gameObject;
                 contactEffect.SetActive(true);
             }
@@ -62,38 +64,42 @@ public class InteractionCtrl : MonoBehaviour
     }
     void NotContact()
     {
+        //상호작용중인 npc는 이펙트가 계속 켜져있게 하기 위해서 상호작용이 아닐때만 꺼줌
         if (isContact && !isInteract)
         {
             isContact = false;
-            //마우스가 내려가면 꺼줘야 하는 것들 넣기
             contactEffect.SetActive(false);
         }
     }
 
 
-    void ClickLeftBtn()
+    void InteractProcess()
     {
+        //마우스에 닿은npc가 상호작용 중이지 않을때 상호작용 가능
         if (isContact && !isInteract)
-        {
+        {   
+            //상호작용 시작할때 실행될 함수
             if (Input.GetMouseButtonDown(0))
             {
-                //상호작용할때 실행될 함수
-                Interact();
+                isInteract = true;
+                hitobj = hitInfo.transform.gameObject;
+                interact_pro?.Invoke(hitobj);
 
+            }
+        }
+        //상호작용 중일때 실행되는 함수
+        if (isInteract)
+        {
+            if (Input.GetKeyDown(KeyCode.G))
+            {
+                interact_pro?.Invoke(hitobj);
             }
         }
        
     }
     
-    void Interact()
-    {
-        //상호작용 중임을 표시
-        isInteract = true;
-        int npcNnm = hitInfo.transform.GetComponent<InteractionNpc>().GetNum();
-        //상호작용 델리게이트 실행
-        interact_pro?.Invoke(npcNnm);
-        
-    }
+
+    //상호작용중이지 않은것은 대화창을 강제로 나가거나 퀘스트를 수락했을때.
     public void NotInteract()
     {
         isInteract = false;

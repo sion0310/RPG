@@ -15,6 +15,8 @@ public class DialogueData : MonoBehaviour
     List<Dictionary<string, object>> hencock = null;
     List<Dictionary<string, object>> buggi = null;
 
+    List<Dictionary<string, object>> questList;        //퀘스트 목록을 가져온다
+
     void Awake()
     {
         //각각의 스크립트를 가져온다
@@ -24,8 +26,10 @@ public class DialogueData : MonoBehaviour
         hencock = CSVReader.Read("Hencock");
         buggi = CSVReader.Read("Buggi");
 
+        questList = CSVReader.Read("questList");
 
-        //모든 스크립트들을 리스트에 넣어준다
+
+        //모든 npc스크립트들을 리스트에 넣어준다
         npcList.Add(nami);
         npcList.Add(kaido);
         npcList.Add(shanks);
@@ -36,33 +40,14 @@ public class DialogueData : MonoBehaviour
     
     public Dictionary<string, object> GetDialogue(int npcNum, int dialNum)
     {
-        //npc의 수가 npcNum보다 적으면 x
-        if (npcList.Count <= npcNum) return null;
-        //스크립트의 대사가 dialNum 보다 적으면 x
-        if (npcList[npcNum].Count <= dialNum) return null;
-
         //반환값은 npcNum가 가진 dialNum번째 줄 대사
         return npcList[npcNum][dialNum];
     }
 
-    public int GetDialCount(int npcNum)
+    public string GetQuest(int questNum,string header)
     {
-        return npcList[npcNum].Count;
+        return questList[questNum][header].ToString();
     }
-
-    public int GetScriptCount()
-    {
-        return npcList.Count;
-    }
-
-    public void Example()
-    {
-        int num = 2;
-        string str;
-        str = "Dialogue" + num.ToString();
-
-
-        Debug.Log(nami[1][str].ToString());
-    }
+ 
 
 }
