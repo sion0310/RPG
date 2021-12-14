@@ -9,13 +9,14 @@ public class DialogueUICtrl : MonoBehaviour
     public DialUI exit_pro = null;
     public DialUI accept_pro = null;
 
-
+    [Header("Dialogue UI")]
     [SerializeField] GameObject dialogueUI = null;     //대화창UI
     [SerializeField] Text txt_Dialogue = null;     //대화창 텍스트
 
-    public GameObject questUI;
-    public Text txt_questName;
-    public Text txt_questExplan;
+    [Header("Quest UI")]
+    [SerializeField] GameObject questUI;
+    [SerializeField] Text txt_questName;
+    [SerializeField] Text txt_questExplan;
     
     bool isDialogue = false;    //대화창이 열리고 닫힘을 표시
     bool getQuest = false;
@@ -68,6 +69,7 @@ public class DialogueUICtrl : MonoBehaviour
         //대화중이 아님을 표시하고
         isDialogue = false;
         getQuest = false;
+        
     }
 
     public void AcceptBtn()

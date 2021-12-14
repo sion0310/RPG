@@ -15,7 +15,8 @@ public class DialogueData : MonoBehaviour
     List<Dictionary<string, object>> hencock = null;
     List<Dictionary<string, object>> buggi = null;
 
-    List<Dictionary<string, object>> questList;        //퀘스트 목록을 가져온다
+    //퀘스트 리스트를 받아 올 변수 
+    List<Dictionary<string, object>> questList;        
 
     void Awake()
     {
@@ -37,17 +38,40 @@ public class DialogueData : MonoBehaviour
         npcList.Add(buggi);
 
     }
-    
-    public Dictionary<string, object> GetDialogue(int npcNum, int dialNum)
+
+    public string GetDialogue(int npcNum, int dialNum, string header)
     {
         //반환값은 npcNum가 가진 dialNum번째 줄 대사
-        return npcList[npcNum][dialNum];
+        return npcList[npcNum][dialNum][header].ToString();
     }
 
-    public string GetQuest(int questNum,string header)
+    public struct Values
     {
-        return questList[questNum][header].ToString();
+        public int _giveNpcNum;
+        public int _doneNpcNum;
+        
+        public string _giveQ;
+        public string _doneQ;
+        
+        public string _questName;
+        public string _questExplan;
+
+        
     }
- 
+
+    public Values GetQuestValues(int _questIndex)
+    {
+        Values value = new Values();
+        value._giveNpcNum = (int)questList[_questIndex]["giveNpc"];
+        value._doneNpcNum = (int)questList[_questIndex]["doneNpc"];
+        value._giveQ = questList[_questIndex]["giveQ"].ToString();
+        value._doneQ = questList[_questIndex]["doneQ"].ToString();
+        value._questName= questList[_questIndex]["questName"].ToString();
+        value._questExplan= questList[_questIndex]["explan"].ToString();
+
+        return value;
+    }
+
+
 
 }
