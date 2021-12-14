@@ -18,7 +18,8 @@ public class DialogueManager : MonoBehaviour
     {
         //상호작용 델리게이트가 실행되면 ShowDialogue함수 호출
         interCtrl.interact_pro = ShowDialogue;
-        dialUI.dialUI_pro = ExitDial;
+        dialUI.exit_pro = ExitDial;
+        dialUI.accept_pro = AcceptQuest;
         questManager.questMg = ShowQuest;
     }
 
@@ -47,5 +48,13 @@ public class DialogueManager : MonoBehaviour
         interCtrl.isInteract = false;
         questManager.talkdone = true;
         questManager.dialogueNum = 0;
+    }
+
+    void AcceptQuest()
+    {
+        interCtrl.isInteract = false;
+        questManager.talkdone = true;
+        questManager.dialogueNum = 0;
+        questManager.AcceptQuest();
     }
 }

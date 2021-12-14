@@ -6,7 +6,8 @@ using UnityEngine.UI;
 public class DialogueUICtrl : MonoBehaviour
 {
     public  delegate void DialUI();
-    public DialUI dialUI_pro = null;
+    public DialUI exit_pro = null;
+    public DialUI accept_pro = null;
 
 
     [SerializeField] GameObject dialogueUI = null;     //대화창UI
@@ -62,13 +63,19 @@ public class DialogueUICtrl : MonoBehaviour
 
     public void ExitBtn()
     {
-        dialUI_pro?.Invoke();
+        exit_pro?.Invoke();
         
         //대화중이 아님을 표시하고
         isDialogue = false;
         getQuest = false;
-        
     }
 
+    public void AcceptBtn()
+    {
+        accept_pro?.Invoke();
+        getQuest = false;
+        isDialogue = false;
+    }
+    
     
 }

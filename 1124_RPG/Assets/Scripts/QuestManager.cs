@@ -94,9 +94,12 @@ public class QuestManager : MonoBehaviour
     public void AfterGiveTalk()
     {
         questMg?.Invoke();
+        
+    }
+    public void AcceptQuest()
+    {
         giveNpc.NpcStateSetUp(InteractionNpc.NpcState.normal);
         doneNpc.NpcStateSetUp(InteractionNpc.NpcState.doingQuest);
-
     }
 
     //퀘스트 조건 달성
@@ -157,8 +160,10 @@ public class QuestManager : MonoBehaviour
             header = "doing";
         if (dial[header].ToString() == "end") 
         {
-            
-            if(talkingNpc.npcState == InteractionNpc.NpcState.haveQuest)
+            dialogueNum--;
+            dial = GetQuestDialogue();
+            talkdone = true;
+            if (talkingNpc.npcState == InteractionNpc.NpcState.haveQuest)
             {
                 AfterGiveTalk();
             }
@@ -166,18 +171,14 @@ public class QuestManager : MonoBehaviour
             {
                 ChangeValue();
             }
-            
-            talkdone = true;
             dialogueNum = 0;
 
         }
         if (!talkdone)
         {
             dialogueNum++;
-
-
-            ?
         }
+
         return dial[header].ToString();
     }
 
