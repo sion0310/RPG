@@ -56,6 +56,8 @@ public class DialogueData : MonoBehaviour
         public string _questName;
         public string _questExplan;
 
+        public string _condition;
+
         
     }
 
@@ -68,6 +70,7 @@ public class DialogueData : MonoBehaviour
         value._doneQ = questList[_questIndex]["doneQ"].ToString();
         value._questName= questList[_questIndex]["questName"].ToString();
         value._questExplan= questList[_questIndex]["explan"].ToString();
+        value._condition= questList[_questIndex]["condition"].ToString();
 
         return value;
     }

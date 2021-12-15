@@ -17,7 +17,9 @@ public class DialogueUICtrl : MonoBehaviour
     [SerializeField] GameObject questUI;
     [SerializeField] Text txt_questName;
     [SerializeField] Text txt_questExplan;
-    
+    [SerializeField] GameObject questDone;
+    [SerializeField] Text txt_questAsk;
+
     bool isDialogue = false;    //대화창이 열리고 닫힘을 표시
     bool getQuest = false;
 
@@ -33,15 +35,22 @@ public class DialogueUICtrl : MonoBehaviour
         txt_Dialogue.text = dial;
     }
 
-    public void OpenQuestBar(string questName,string questExplan)
+    public void OpenQuestBar(string _questName, string _questExplan, bool _questDone)
     {
         getQuest = true;
         
         txt_questName.text = "";
         txt_questExplan.text = "";
+        txt_questAsk.text = "퀘스트를 수락하시겠습니까?";
 
-        txt_questName.text = questName;
-        txt_questExplan.text = questExplan;
+        txt_questName.text = _questName;
+        txt_questExplan.text = _questExplan;
+        if (_questDone)
+        {
+            questDone.SetActive(true);
+            txt_questAsk.text = "보상을 받으시겠습니까?";
+        }
+        else questDone.SetActive(false);
     }
     
     private void Update()

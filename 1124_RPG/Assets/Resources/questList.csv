@@ -1,7 +1,7 @@
-giveNpc,doneNpc,questName,explan,giveQ,doneQ
-0,1,카이도는 누구인가?,카이도를 찾아가 대화를 나누자,give1,done1
-2,2,아이템 사용,I를 눌러 창을 열고 샹크스가 준 음식을 사용해보자,give2,done2
-2,4,상점 이용,보따리 상인 버기에게서 무기 구입해보자,give3,normal
-1,1,몬스터 처치,고블린을 10마리 처치하자,give4,done4
-2,2,보스 몬스터 처치,고블린 대장을 처치하자,give5,done5
-end,end,end,end,end,end
+giveNpc,doneNpc,questName,explan,giveQ,doneQ,condition
+0,1,카이도는 누구인가?,카이도를 찾아가 대화를 나누자,give1,done1,none
+2,2,아이템 사용,I를 눌러 창을 열고 샹크스가 준 음식을 사용해보자,give2,done2,item
+2,4,상점 이용,보따리 상인 버기에게서 무기 구입해보자,give3,doing,item
+1,1,몬스터 처치,고블린을 10마리 처치하자,give4,done4,item
+2,2,보스 몬스터 처치,고블린 대장을 처치하자,give5,done5,item
+end,end,end,end,end,end,end
